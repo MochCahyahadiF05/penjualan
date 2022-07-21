@@ -18,8 +18,8 @@
                                     <th>Nama</th>
                                     <th>Nomor Induk Siswa</th>
                                     <th>Jenis Kelamin</th>
-                                    <th>Tanggal Lahir</th>
                                     <th>Agama</th>
+                                    <th>Tanggal Lahir</th>
                                     <th>Alamat</th>
                                     <th>action</th>
                                 </tr>

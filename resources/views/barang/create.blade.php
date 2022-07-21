@@ -24,9 +24,9 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">tgl pembelian</label>
-                                <input type="date" class="form-control  @error('tgl_barang') is-invalid @enderror"
-                                    name="tgl_barang">
-                                @error('tgl_barang')
+                                <input type="date" class="form-control  @error('tgl_pembelian') is-invalid @enderror"
+                                    name="tgl_pembelian">
+                                @error('tgl_pembelian')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -55,7 +55,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">jumlah_barang</label>
-                                <input type="number" class="form-control  @error('jumlah_barang') is-invalid @enderror"
+                                <input type="number" class="form-control @error('jumlah_barang') is-invalid @enderror"
                                     name="jumlah_barang">
                                 @error('jumlah_barang')
                                     <span class="invalid-feedback" role="alert">

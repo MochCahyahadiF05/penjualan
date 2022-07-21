@@ -52,10 +52,12 @@ class BarangController extends Controller
 
         $barang = new Barang();
         $barang->nama_pembeli = $request->nama_pembeli;
-        $barang->tgl_pembeli = $request->tgl_pembeli;
+        $barang->tgl_pembelian = $request->tgl_pembelian;
         $barang->nama_barang = $request->nama_barang;
         $barang->harga_satuan = $request->harga_satuan;
         $barang->jumlah_barang = $request->jumlah_barang;
+        $barang->total_harga = $barang->jumlah_barang * $barang->harga_satuan;
+
         $barang->save();
         return redirect()->route('barang.index')
             ->with('success', 'Data berhasil dibuat!');
@@ -71,7 +73,7 @@ class BarangController extends Controller
     public function show($id)
     {
         $barang = Barang::findOrFail($id);
-        return view('barang.show', compact('$barang'));
+        return view('barang.show', compact('barang'));
 
     }
 
@@ -106,13 +108,13 @@ class BarangController extends Controller
     
 ]);
 
-$siswa = Siswa::findOrFail($id);
+$barang = Barang::findOrFail($id);
 $barang->nama_pembeli = $request->nama_pembeli;
-$barang->tgl_pembeli = $request->tgl_pembeli;
+$barang->tgl_pembelian = $request->tgl_pembelian;
 $barang->nama_barang = $request->nama_barang;
 $barang->harga_satuan = $request->harga_satuan;
 $barang->jumlah_barang = $request->jumlah_barang;
-
+$barang->total_harga = $barang->jumlah_barang*$barang->harga_satuan;
 $barang->save();
 return redirect()->route('barang.index')
     ->with('success', 'Data berhasil diedit!');
@@ -127,6 +129,9 @@ return redirect()->route('barang.index')
      */
     public function destroy($id)
     {
-        //
+        $barang = Barang::findOrFail($id);
+        $barang->delete();
+        return redirect()->route('barang.index')->with('success', 'Data berhasil dihapus!');
+
     }
 }

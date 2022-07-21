@@ -22,7 +22,7 @@
                                         <th>Nama Pembeli</th>
                                         <th>tanggal Pembelian</th>
                                         <th>Nama Barang</th>
-                                        <th>qty</th>
+                                        <th>Harga Satuan</th>
                                         <th>jumlah barang</th>
                                         <th>Total Harga</th>
                                         <th>Aksi</th>
@@ -34,15 +34,14 @@
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $data->nama_pembeli }}</td>
-                                            <td>{{ date('d M Y', strtotime($data->tgl_pembeli)) }}</td>
+                                            <td>{{ date('d M Y', strtotime($data->tgl_pembelian)) }}</td>
                                             <td>{{ $data->nama_barang }}</td>
-                                            <td>{{ $data->harga_satuan }}</td>
+                                            <td>{{ number_format($data->harga_satuan,0,",",".") }}</td>
                                             <td>{{ $data->jumlah_barang }}</td>
-
-                                            @php
+                                            <td>{{ number_format($data->total_harga,0,",",".") }}</td>
+                                            {{-- @php
                                                 $data->total_harga=$data->harga_satuan*$data->jumlah_barang;
-                                            @endphp
-                                            <td>{{ $data->total_harga }}</td>
+                                            @endphp --}}
                                             <td>
                                                 <form action="{{ route('barang.destroy', $data->id) }}" method="post">
                                                     @csrf
