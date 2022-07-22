@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Data siswa
                     <a href="{{ route('barang.create')}}" class="btn btn-sm btn-primary" style="float: right">Tambah Data</a>

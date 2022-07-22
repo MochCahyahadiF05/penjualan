@@ -22,10 +22,18 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('siswa', SiswaController::class);
-Route::resource('barang', BarangController::class);
-
 // test template
-Route::get('test-template',function(){
-    return view('layouts.admin');
-});
+// Route::get('test-template',function(){
+//     return view('layouts.admin');
+// });
+
+//route backend
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']],
+    function () {
+        Route::get('/', function () {
+            return view('admin.index');
+        });
+        Route::resource('siswa', SiswaController::class);
+        Route::resource('barang', BarangController::class);
+
+    });
