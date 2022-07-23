@@ -62,6 +62,15 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{route('wali.index')}}" class="nav-link {{Request::is('admin/wali') ? 'active' : ''}}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Wali
+                
+              </p>
+            </a>
+          </li>
           
         </ul>
       </nav>
