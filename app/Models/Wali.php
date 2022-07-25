@@ -20,9 +20,10 @@ class Wali extends Model
     }
     public function image()
     {
-        if ($this->foto && file_exists(public_path('images/wali' . $this->foto))) {
-            return asset('images/wali/' . $this->foto);
-        } else {
+        if ($this->foto && file_exists(public_path('images/wali/' . $this->foto))) {
+    return asset('images/wali/' . $this->foto);
+    }
+    else {
             return asset('images/No_image.jpg');
         }
     }
