@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Wali extends Model
 {
     use HasFactory;
-    public $fillable = ['nama','foto', 'id_siswa'];
+    public $fillable = ['nama', 'foto', 'id_siswa'];
     public $timestamps = true;
 
     // membuat relasi one to one di model
@@ -20,17 +20,17 @@ class Wali extends Model
     }
     public function image()
     {
-        if($this->foto && file_exists(public_path('image/wali'.$this->foto))){
-            return asset('images/wali/'.$this->foto);
-        }else{
-            return asset('images/mo_image.jpg');
+        if ($this->foto && file_exists(public_path('images/wali' . $this->foto))) {
+            return asset('images/wali/' . $this->foto);
+        } else {
+            return asset('images/No_image.jpg');
         }
     }
     public function deleteImage()
     {
-       if ($this->foto && file_exists(public_path('image/wali' . $this->foto))) {
+        if ($this->foto && file_exists(public_path('images/wali' . $this->foto))) {
             return unlink(public_path('images/wali/' . $this->foto));
         }
- 
+
     }
 }

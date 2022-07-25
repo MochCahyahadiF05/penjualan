@@ -24,14 +24,25 @@
                                 $no=1;
                             @endphp
                             @foreach ($wali as $data)
+                            <tr>
+
                                 <td>{{$no++}}</td>
                                 <td> {{$data->nama}} </td>
                                 <td>
-                                    <img src=" {{$data->image}} " style="width: 150px">
+                                    <img src=" {{$data->image()}} " style="width: 100px; height:100px;">
                                 </td>
                                 <td> {{$data->siswa->nama}} </td>
-                                <td>Aksi</td>
+                                <td>
+                                    <form action=" {{route('wali.destroy',$data->id)}} " method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <a href=" {{route('wali.edit',$data->id)}} " class="btn btn-sm btn-outline-success">Edit</a>|
+                                    <a href=" {{route('wali.show',$data->id)}} " class="btn btn-sm btn-outline-warning">Show</a>|
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('apakah anda yakin?')">Delete</button>
+                                    </form>
+                                </td>
                             @endforeach
+                            </tr>
                         </tbody>
                     </table>
                 </div>

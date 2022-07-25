@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Siswa;
 use App\Models\Wali;
+use Illuminate\Http\Request;
+
 class WaliController extends Controller
 {
     /**
@@ -13,9 +15,9 @@ class WaliController extends Controller
      */
     public function index()
     {
-        $wali=Wali::with('siswa')->get();
-        
-        return view('wali.index',['wali'=>$wali]);
+        $wali = Wali::with('siswa')->get();
+
+        return view('wali.index', ['wali' => $wali]);
     }
 
     /**
@@ -25,8 +27,8 @@ class WaliController extends Controller
      */
     public function create()
     {
-        $siswa=Siswa::all();
-        return view('wali.index',compact('siswa'));
+        $siswa = Siswa::all();
+        return view('wali.create', compact('siswa'));
     }
 
     /**
@@ -38,22 +40,21 @@ class WaliController extends Controller
     public function store(Request $request)
     {
         // validasi
-        $validated=$request->validate([
-            'nama'=>'required',
-            'id_siswa'=>'required|unique|walis',
-            'foto'=>'required|image|max:2048'
+        $validated = $request->validate([
+            'nama' => 'required',
+            'id_siswa' => 'required|unique:walis',
+            'foto' => 'required|image|max:2048',
         ]);
 
-
-        $wali=new Wali();
-        $wali->nama=$request->nama;
-        if($request->hashFile('foto')){
-            $image=$request->file('foto');
-            $name=rand(1000,9999) . $image->getClientOriginalName();
-            $image->move('image/wali/',$name);
-            $wali->foto=$name;
+        $wali = new Wali();
+        $wali->nama = $request->nama;
+        if ($request->hasFile('foto')) {
+            $image = $request->file('foto');
+            $name = rand(1000, 9999) . $image->getClientOriginalName();
+            $image->move('images/wali/', $name);
+            $wali->foto = $name;
         }
-        $wali->id_siswa=$request->id_siswa;
+        $wali->id_siswa = $request->id_siswa;
         $wali->save();
         return redirect()->route('wali.index')
             ->with('success', 'Data berhasil dibuat!');
@@ -68,8 +69,8 @@ class WaliController extends Controller
      */
     public function show($id)
     {
-        $wali=Wali::findOrFail($id);
-        return view('wali.show',compact($wali));
+        $wali = Wali::findOrFail($id);
+        return view('wali.show', compact($wali));
     }
 
     /**
@@ -80,9 +81,9 @@ class WaliController extends Controller
      */
     public function edit($id)
     {
-        $wali=Wali::findOrFail($id);
-        $siswa=Siswa::all();
-        return view('wali.edit',compact('wali','siswa'));
+        $wali = Wali::findOrFail($id);
+        $siswa = Siswa::all();
+        return view('wali.edit', compact('wali', 'siswa'));
     }
 
     /**
@@ -98,16 +99,16 @@ class WaliController extends Controller
         $validated = $request->validate([
             'nama' => 'required',
             'id_siswa' => 'required',
-            'foto' => 'required|image|max:2048',
+            'foto' => 'image|max:2048',
         ]);
 
         $wali = Wali::findOrFail($id);
         $wali->nama = $request->nama;
-        if ($request->hashFile('foto')) {
+        if ($request->hasFile('foto')) {
             $wali->deleteImage();
             $image = $request->file('foto');
             $name = rand(1000, 9999) . $image->getClientOriginalName();
-            $image->move('image/wali/', $name);
+            $image->move('images/wali/', $name);
             $wali->foto = $name;
         }
         $wali->id_siswa = $request->id_siswa;
@@ -125,9 +126,9 @@ class WaliController extends Controller
      */
     public function destroy($id)
     {
-        $wali=Wali::findOrFail($id);
+        $wali = Wali::findOrFail($id);
         $wali->deleteImage();
-        $article->delete();
+        $wali->delete();
         return redirect()->route('wali.index')
             ->with('success', 'Data berhasil dihapus!');
 
